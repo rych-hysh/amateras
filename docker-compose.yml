@@ -1,8 +1,10 @@
 version: '3'
 services:
   db:
-    image: mysql:8.0
     container_name: "spring_db"
+    build:
+      context: .
+      dockerfile: ./Database/Dockerfile
     ports:
       - 3306:3306
     volumes:
