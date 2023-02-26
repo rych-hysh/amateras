@@ -20,4 +20,28 @@ public class Rates {
     private float low;
     private float high;
 
+    public Integer getId(){
+        return id;
+    }
+
+    public Date getDate(){
+        return date;
+    }
+
+    public float getOpen(){
+        return open;
+    }
+
+    public float getClose(){
+        return open;
+    }
+
+    public float getLow(){
+        return open;
+    }
+
+    public float getHigh(){
+        return open;
+    }
+
 }
