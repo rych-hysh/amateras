@@ -9,7 +9,7 @@ Run
 ./gradlew build
 ```
 
-to build.
+to build. 
 
 # Run
 
@@ -19,4 +19,4 @@ Run
 docker-compose up
 ```
 
-after build to run app.
+to build and run app.
