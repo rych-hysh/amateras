@@ -15,33 +15,11 @@ public class Rates {
 
     private Date date;
 
-    private float open;
-    private float close;
-    private float low;
-    private float high;
+    private float rate;
 
-    public Integer getId(){
-        return id;
-    }
+    public Integer getId(){ return id; }
 
-    public Date getDate(){
-        return date;
-    }
+    public Date getDate(){ return date; }
 
-    public float getOpen(){
-        return open;
-    }
-
-    public float getClose(){
-        return open;
-    }
-
-    public float getLow(){
-        return open;
-    }
-
-    public float getHigh(){
-        return open;
-    }
-
+    public float getRate(){ return rate; }
 }
