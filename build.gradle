@@ -29,11 +29,3 @@ tasks.named('test') {
 jar{
 	enabled=false
 }
-
-tasks.register('db', Exec) {
-	commandLine "cmd", "/c", "docker-compose", "up", "-d", "db"
-}
-
-processResources{
-	dependsOn db
-}
