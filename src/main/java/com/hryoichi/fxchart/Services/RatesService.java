@@ -2,20 +2,22 @@ package com.hryoichi.fxchart.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hryoichi.fxchart.Entities.Rates;
+import com.hryoichi.fxchart.Events.AlgorithmCheck;
+import com.hryoichi.fxchart.Events.Publisher.RatesUpdatedPublisher;
 import com.hryoichi.fxchart.Repositories.RatesRepository;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 @Service
@@ -27,7 +29,8 @@ public class RatesService {
     @Value("${alpha-vantage.api-host}")
     private String AlphaVantageApiHost;
     RestTemplate restTemplate = new RestTemplate();
-
+    @Autowired
+    private RatesUpdatedPublisher ratesUpdatedPublisher;
     public Iterable<Rates> getAllRates() {
         return ratesRepository.findAll();
     }
@@ -54,8 +57,9 @@ public class RatesService {
             date = date.plusHours(9);
             currentRate.setDate(date);
             ratesRepository.save(currentRate);
+            ratesUpdatedPublisher.Updated();
         }catch(Exception error){
-
+            final var s = error.toString();
         }
     }
 }
