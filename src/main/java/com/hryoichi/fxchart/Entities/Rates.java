@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Entity
 public class Rates {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq")
-    @SequenceGenerator(name = "seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "rates_seq")
+    @SequenceGenerator(name = "rates_seq", allocationSize = 1)
     private Integer id;
 
     private LocalDateTime date;

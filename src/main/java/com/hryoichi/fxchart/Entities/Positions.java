@@ -1,20 +1,16 @@
 package com.hryoichi.fxchart.Entities;
 
 import java.util.Date;
-import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import org.springframework.data.jpa.repository.Query;
+import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
-@Getter
+@Data
 public class Positions {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "positions_seq")
+    @SequenceGenerator(name = "positions_seq", allocationSize = 1)
     private Integer id;
 
     private String pair;
