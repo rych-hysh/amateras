@@ -17,3 +17,8 @@ spring:
 #      data-locations: classpath:data.sql
 server:
   port: 8080
+
+alpha-vantage:
+  api-app: fxchart
+  api-key: 56a6d0de19msh762a3bf5e37b4a4p1e878djsndb5d43cb09ec
+  api-host: alpha-vantage.p.rapidapi.com
