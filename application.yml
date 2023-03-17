@@ -10,11 +10,11 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-#  sql:
-#    init:
-#      mode: always
-#      enabled: true
-#      data-locations: classpath:data.sql
+  sql:
+    init:
+      mode: always
+      enabled: true
+      data-locations: classpath:data.sql
 server:
   port: 8080
 
