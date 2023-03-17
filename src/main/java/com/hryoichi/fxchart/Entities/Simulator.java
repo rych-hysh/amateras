@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
+import java.util.List;
+
 @Entity
 @Getter
 public class Simulator {
@@ -13,7 +15,7 @@ public class Simulator {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private int simulatorName;
+    private String simulatorName;
 
     private String userUuid;
 

@@ -27,6 +27,8 @@ public class Positions {
 
     private int lots;
 
+    private int algorithmId;
+
     private Date atDate;
 
     private boolean isSettled;
