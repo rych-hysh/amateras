@@ -19,3 +19,11 @@ INSERT IGNORE INTO simulator(id, simulator_name, user_uuid, is_running) VALUES (
 INSERT IGNORE INTO simulator(id, simulator_name, user_uuid, is_running) VALUES (3, "Simulator D", "TestUser1Uuid", 0);
 INSERT IGNORE INTO simulator(id, simulator_name, user_uuid, is_running) VALUES (4, "Simulator E", "TestUser2Uuid", 0);
 INSERT IGNORE INTO simulator(id, simulator_name, user_uuid, is_running) VALUES (5, "Simulator F", "TestUser1Uuid", 1);
+
+INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (0, 0, 0,    null,               0);
+INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (1, 1, 0,    null,               1);
+INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (2, 0, null, "TestUser1Uuid",    1);
+INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (3, 1, 1,    null,               1);
+INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (4, 2, 2,    null,               1);
+INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (5, 2, 5,    null,               1);
+INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (6, 1, null, "TestUser2Uuid",    1);
