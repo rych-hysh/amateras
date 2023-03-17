@@ -17,8 +17,7 @@ public class AlgorithmManageService {
     @Async
     public void onRateUpdated(AlgorithmCheck event){
         final var res = event.check();
-        List<Simulator> runningSimulators = simulatorRepository.getRunningSimulators();
-        runningSimulators.forEach(item -> item.getUserUuid());
+        List<Integer> runningSimulatorIdList = simulatorsRepository.getRunningSimulatorsId();
 
     }
 }
