@@ -16,6 +16,6 @@ public class Simulators {
 
     private String userUuid;
 
-    private boolean isRunning;
+    private Boolean isRunning;
 
 }
