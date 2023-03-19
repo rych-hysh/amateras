@@ -1,8 +1,8 @@
 package com.hryoichi.fxchart.Entities;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Data
@@ -14,10 +14,10 @@ public class RunningAlgorithms {
 
     private int algorithmId;
 
-    @Nullable
-    private int simulatorId;
+    @Column(nullable = true)
+    private Integer simulatorId;
 
-    @Nullable
+    @Column(nullable = true)
     private String userUuid;
 
     private boolean isSubscribed;
