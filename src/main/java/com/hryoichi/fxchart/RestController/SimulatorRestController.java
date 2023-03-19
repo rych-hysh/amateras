@@ -1,0 +1,19 @@
+package com.hryoichi.fxchart.RestController;
+
+import com.hryoichi.fxchart.Entities.Simulators;
+import com.hryoichi.fxchart.Services.SimulatorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("simulators")
+public class SimulatorRestController {
+    @Autowired
+    SimulatorService simulatorService;
+    @GetMapping("/{uuid}")
+    private List<Simulators> getSimulatorsByUuid(@PathVariable("uuid") String uuid){
+        return simulatorService.getSimulatorsByUuid(uuid);
+    }
+}
