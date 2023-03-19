@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/positions")
+@CrossOrigin
 public class PositionRestController {
     @Autowired
     private PositionsService positionsService;
