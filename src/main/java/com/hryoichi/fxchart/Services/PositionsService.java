@@ -22,13 +22,15 @@ public class PositionsService {
 
     public PositionsDto of(Positions position){
         PositionsDto positionsDto = new PositionsDto();
+        positionsDto.id = position.getId();
         positionsDto.pair = position.getPair();
-        positionsDto.isAsk = position.isAsk();
+        positionsDto.askOrBid = position.isAsk() ? "ask" : "bid";
         positionsDto.atRate = position.getAtRate();
         positionsDto.lots = position.getLots();
-        positionsDto.algorithmId = position.getAlgorithmId();
+        positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorigthmNameById
         positionsDto.atDate = position.getAtDate();
         positionsDto.profits = (positionsDto.atRate - ratesService.getLatestRate()) * position.getLots() * (position.isAsk() ? 1 : -1);
+        positionsDto.isSettled = position.isSettled();
         return positionsDto;
     }
 
