@@ -14,7 +14,7 @@ public class PositionRestController {
     @Autowired
     private PositionsService positionsService;
     @GetMapping("/{simulatorId}")
-    public @ResponseBody List<PositionsDto> getPositionsBySimulatorId(@PathVariable("simulatorId") int simulatorId){
+    public List<PositionsDto> getPositionsBySimulatorId(@PathVariable("simulatorId") int simulatorId){
         return positionsService.getPositionsDtoListOf(positionsService.getPositionsBySimulatorId(simulatorId));
     }
 }
