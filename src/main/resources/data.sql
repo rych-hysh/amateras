@@ -13,12 +13,13 @@ INSERT IGNORE INTO positions(id, pair, simulator_id, is_ask, at_rate, lots, algo
 INSERT IGNORE INTO positions(id, pair, simulator_id, is_ask, at_rate, lots, algorithm_id, at_date, is_settled) VALUES (11, "USD/JPY", 4, 1, 125 + 15* rand(), 2, 2, '2019-10-01 10:35:00', 1);
 INSERT IGNORE INTO positions(id, pair, simulator_id, is_ask, at_rate, lots, algorithm_id, at_date, is_settled) VALUES (12, "USD/JPY", 5, 0, 125 + 15* rand(), 1, 1, '2019-10-01 12:30:00', 0);
 
-INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (0, "Simulator A", "TestUser1Uuid", 1);
+INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (0, "Simulator A", "1893d2b7-ed66-44b2-a133-35a45f0a4947", 1);
 INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (1, "Simulator B", "TestUser2Uuid", 1);
 INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (2, "Simulator C", "TestUser3Uuid", 1);
-INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (3, "Simulator D", "TestUser1Uuid", 0);
+INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (3, "Simulator D", "1893d2b7-ed66-44b2-a133-35a45f0a4947", 0);
 INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (4, "Simulator E", "TestUser2Uuid", 0);
-INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (5, "Simulator F", "TestUser1Uuid", 1);
+INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (5, "Simulator F", "1893d2b7-ed66-44b2-a133-35a45f0a4947", 1);
+INSERT IGNORE INTO simulators(id, simulator_name, user_uuid, is_running) VALUES (6, "Simulator G", "1893d2b7-ed66-44b2-a133-35a45f0a4947", 1);
 
 INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (0, 0, 0,    null,               0);
 INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (1, 1, 0,    null,               1);
