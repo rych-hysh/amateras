@@ -3,10 +3,12 @@ package com.hryoichi.fxchart.Entities;
 import java.util.Date;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Data
+@AllArgsConstructor
 public class Positions {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "positions_seq")
@@ -15,18 +17,28 @@ public class Positions {
 
     private String pair;
 
-    private int SimulatorId;
+    private Integer simulatorId;
 
-    private boolean ask;
+    private boolean isAsk;
 
     private float atRate;
 
-    private int lots;
+    private Integer lots;
 
-    private int algorithmId;
+    private Integer algorithmId;
 
     private Date atDate;
 
     private boolean isSettled;
 
+    public Positions(String pair, Integer simulatorId, boolean isAsk, float atRate, Integer lots, Integer algorithmId, Date atDate, boolean isSettled){
+        this.pair = pair;
+        this.simulatorId = simulatorId;
+        this.isAsk = isAsk;
+        this.atRate = atRate;
+        this.lots = lots;
+        this.algorithmId = algorithmId;
+        this.atDate = atDate;
+        this.isSettled = isSettled;
+    }
 }
