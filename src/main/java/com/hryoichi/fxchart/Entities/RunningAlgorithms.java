@@ -9,7 +9,7 @@ import org.springframework.lang.Nullable;
 public class RunningAlgorithms {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "running_algorithms_seq")
-    @SequenceGenerator(name = "running_algorithms_seq", allocationSize = 1)
+    @SequenceGenerator(name = "running_algorithms_seq", allocationSize = 1, initialValue = 13)
     private Integer id;
 
     private int algorithmId;

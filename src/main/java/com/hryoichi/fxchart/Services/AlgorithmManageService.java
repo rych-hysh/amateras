@@ -7,6 +7,7 @@ import com.hryoichi.fxchart.Entities.RunningAlgorithms;
 import com.hryoichi.fxchart.Entities.Simulators;
 import com.hryoichi.fxchart.Events.AlgorithmCheck;
 import com.hryoichi.fxchart.Models.AlgorithmResult;
+import com.hryoichi.fxchart.Repositories.PositionsRepository;
 import com.hryoichi.fxchart.Repositories.RatesRepository;
 import com.hryoichi.fxchart.Repositories.RunningAlgorithmsRepository;
 import com.hryoichi.fxchart.Repositories.SimulatorsRepository;
@@ -24,11 +25,17 @@ public class AlgorithmManageService {
     @Autowired
     RunningAlgorithmsRepository runningAlgorithmsRepository;
     @Autowired
-    RatesRepository ratesRepository;
+    PositionsRepository positionsRepository;
+    @Autowired
+    RatesService ratesService;
+    @Autowired
+    SampleAlgorithm sampleAlgorithm;
+
     @EventListener
     @Async
     public void onRateUpdated(AlgorithmCheck event){
         final var res = event.check();
+        // TODO: Repositoryを直接叩かずServiceを利用する
         List<Simulators> runningSimulatorList = simulatorsRepository.getRunningSimulators();
         runningSimulatorList.forEach(simulator ->{
             List<Integer> subscribedAlgorithmIdList = runningAlgorithmsRepository.getSubscribedAlgorithmsIdBySimulatorId(simulator.getId());
@@ -38,7 +45,13 @@ public class AlgorithmManageService {
                 if(!result.isDoOrder()){
                     return;
                 }
-                Positions order = new Positions("USD/JPY", simulator.getId(), result.isAsk(), ratesRepository.getLatest().getAskPrice(), result.getLots(), algorithmId, new Date(), false);
+                Positions order;
+                if(result.isSettle()){
+                    order = new Positions(result.getSettlePositionId(), "USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, new Date(), true);
+                }else{
+                    order = new Positions("USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, new Date(), false);
+                }
+                positionsRepository.save(order);
 //                if(simulatorId.isRequireNotice){
 //                    LINEMessage.send( to simulator.getUserUuid)
 //                }
@@ -51,19 +64,19 @@ public class AlgorithmManageService {
     private AbstractAlgorithm getAlgorithmById(int algorithmId){
         switch (algorithmId){
             case SampleAlgorithm.ID:
-                return new SampleAlgorithm();
+                return sampleAlgorithm;
             case 1:
-                return new SampleAlgorithm();
+                return sampleAlgorithm;
             case 2:
-                return new SampleAlgorithm();
+                return sampleAlgorithm;
             case 3:
-                return new SampleAlgorithm();
+                return sampleAlgorithm;
             case 4:
-                return new SampleAlgorithm();
+                return sampleAlgorithm;
             case 5:
-                return new SampleAlgorithm();
+                return sampleAlgorithm;
             case 6:
-                return new SampleAlgorithm();
+                return sampleAlgorithm;
             default:
                 return null;
         }

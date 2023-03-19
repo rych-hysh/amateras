@@ -3,7 +3,9 @@ package com.hryoichi.fxchart.Algorythms;
 import com.hryoichi.fxchart.Models.AlgorithmResult;
 import com.hryoichi.fxchart.Repositories.PositionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public abstract class AbstractAlgorithm {
     @Autowired
     PositionsRepository positionsRepository;

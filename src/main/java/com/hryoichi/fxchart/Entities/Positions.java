@@ -5,14 +5,16 @@ import java.util.Date;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Positions {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "positions_seq")
-    @SequenceGenerator(name = "positions_seq", allocationSize = 1)
+    @SequenceGenerator(name = "positions_seq", allocationSize = 1, initialValue = 13)
     private Integer id;
 
     private String pair;

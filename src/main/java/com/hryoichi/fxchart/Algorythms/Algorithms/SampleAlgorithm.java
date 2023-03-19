@@ -9,10 +9,12 @@ import com.hryoichi.fxchart.Repositories.RatesRepository;
 import com.hryoichi.fxchart.Services.RatesService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class SampleAlgorithm extends AbstractAlgorithm {
     @Autowired
     PositionsRepository positionsRepository;
@@ -26,16 +28,15 @@ public class SampleAlgorithm extends AbstractAlgorithm {
     protected void closePositionNow(int simulatorId, int lots){
     };
     public AlgorithmResult checkAlgorithm(){
-        return new AlgorithmResult(true, true, 0, "USD/JPY");
+        return new AlgorithmResult("USD/JPY", true, true, 0, false, 0);
     };
 
     public AlgorithmResult checkAlgorithmBySimulatorId(int simulatorId){
         List<Positions> positionList = positionsRepository.getPositionsBySimulatorId(simulatorId);
         if(positionList.isEmpty()){
-            placeTradeNow(0, 1);
+            return new AlgorithmResult("USD/JPY", true, true, 1, false, 0);
         }else{
-            closePositionNow(0, 1);
+            return new AlgorithmResult("USD/JPY", true, true, 1, true, positionList.get(0).getId());
         }
-        return new AlgorithmResult(false, false, 0, "USD/JPY");
     };
 }
