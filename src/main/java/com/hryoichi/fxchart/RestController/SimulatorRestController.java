@@ -18,4 +18,11 @@ public class SimulatorRestController {
     private List<Simulators> getSimulatorsByUuid(@PathVariable("uuid") String uuid){
         return simulatorService.getSimulatorsByUuid(uuid);
     }
+
+    @PostMapping("/update}")
+    @CrossOrigin
+    private String updateSimulator(@RequestBody Simulators simulators){
+        simulatorService.updateSimulator(simulators);
+        return "success";
+    }
 }

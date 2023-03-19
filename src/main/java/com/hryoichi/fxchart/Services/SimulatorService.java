@@ -15,4 +15,12 @@ public class SimulatorService {
     public List<Simulators> getSimulatorsByUuid(String uuid) {
         return simulatorsRepository.getSimulatorsByUuid(uuid);
     }
+    public String updateSimulator(Simulators simulators){
+        try{
+            simulatorsRepository.save(simulators);
+        }catch (Error error){
+            return error.toString();
+        }
+        return "success";
+    }
 }
