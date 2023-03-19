@@ -5,10 +5,11 @@ import java.util.Date;
 public class PositionsDto {
     public int id;
     public String pair;
-    public boolean isAsk;
+    public String askOrBid;
     public float atRate;
     public int lots;
-    public int algorithmId;
+    public String algorithmName;
     public Date atDate;
     public float profits;
+    public boolean isSettled;
 }
