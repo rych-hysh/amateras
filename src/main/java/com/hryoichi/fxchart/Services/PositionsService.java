@@ -22,6 +22,7 @@ public class PositionsService {
 
     public PositionsDto of(Positions position){
         PositionsDto positionsDto = new PositionsDto();
+        positionsDto.id = position.getId();
         positionsDto.pair = position.getPair();
         positionsDto.isAsk = position.isAsk();
         positionsDto.atRate = position.getAtRate();
