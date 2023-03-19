@@ -34,7 +34,7 @@ public class RatesService {
     public Iterable<Rates> getAllRates() {
         return ratesRepository.findAll();
     }
-
+    public float getLatestRate(){return ratesRepository.getLatest().getAskPrice();}
 
     @Scheduled(cron = "0 */5 * * * *", zone = "Asia/Tokyo")
     public void collectCurrentUSD_JPY() {
