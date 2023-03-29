@@ -8,10 +8,10 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./Database/init:/docker-entrypoint-initdb.d
+#      - ./Database/init:/docker-entrypoint-initdb.d
       - ./Database/mysql.cnf:/etc/mysql/conf.d/my.cnf
     environment:
-      MYSQL_DATABASE: forex_rate
+      MYSQL_DATABASE: amateras_db
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root
       TZ: Asia/Tokyo
