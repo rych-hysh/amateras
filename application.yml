@@ -1,0 +1,24 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    # spring boot をWindows上で動かす（debugする）とき
+    url: jdbc:mysql://localhost:3306/forex_rate?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    # spring boot をdocker上で動かす（docker-compose upする）とき
+    # url: jdbc:mysql://db:3306/forex_rate?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#  sql:
+#    init:
+#      mode: always
+#      enabled: true
+#      data-locations: classpath:data.sql
+server:
+  port: 8080
+
+alpha-vantage:
+  api-app: fxchart
+  api-key: 56a6d0de19msh762a3bf5e37b4a4p1e878djsndb5d43cb09ec
+  api-host: alpha-vantage.p.rapidapi.com
