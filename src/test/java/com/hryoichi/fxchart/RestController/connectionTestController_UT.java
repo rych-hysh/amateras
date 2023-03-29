@@ -1,4 +1,4 @@
-package com.hryoichi.fxchart.RestController;
+package com.hryoichi.amateras.RestController;
 
 import org.junit.jupiter.api.Test;
 
