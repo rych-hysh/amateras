@@ -4,9 +4,11 @@ import com.hryoichi.amateras.Entities.Positions;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PositionsRepository extends CrudRepository<Positions, Integer> {
     @Query(value = "SELECT * from positions", nativeQuery = true, countQuery = "select 1")
     List<Positions> queryAll();

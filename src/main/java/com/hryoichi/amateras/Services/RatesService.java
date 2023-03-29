@@ -2,17 +2,14 @@ package com.hryoichi.amateras.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hryoichi.amateras.Entities.Rates;
-import com.hryoichi.amateras.Events.AlgorithmCheck;
 import com.hryoichi.amateras.Events.Publisher.RatesUpdatedPublisher;
 import com.hryoichi.amateras.Repositories.RatesRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
