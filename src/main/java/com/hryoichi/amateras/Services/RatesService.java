@@ -20,14 +20,14 @@ import java.util.LinkedHashMap;
 @Service
 public class RatesService {
     @Autowired
-    private RatesRepository ratesRepository;
+    RatesRepository ratesRepository;
     @Value("${alpha-vantage.api-key}")
     private String AlphaVantageApiKey;
     @Value("${alpha-vantage.api-host}")
     private String AlphaVantageApiHost;
     RestTemplate restTemplate = new RestTemplate();
     @Autowired
-    private RatesUpdatedPublisher ratesUpdatedPublisher;
+    RatesUpdatedPublisher ratesUpdatedPublisher;
     public Iterable<Rates> getAllRates() {
         return ratesRepository.findAll();
     }
