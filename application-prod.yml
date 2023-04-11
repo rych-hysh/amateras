@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: sample
   jpa:
     hibernate:
       ddl-auto: create
@@ -25,4 +23,4 @@ alpha-vantage:
   api-key: 56a6d0de19msh762a3bf5e37b4a4p1e878djsndb5d43cb09ec
   api-host: alpha-vantage.p.rapidapi.com
 
-test: "this is sample"
+test: "this is dev"
