@@ -26,8 +26,7 @@ public class SimulatorRestController {
     @CrossOrigin
     @ResponseBody
     private ResponseEntity<String> addSimulator(@RequestBody SimulatorsDto simDto){
-        final var a = simDto;
         simulatorService.updateSimulator(simDto);
-        return new ResponseEntity<String>("text", HttpStatus.OK);
+        return new ResponseEntity<>("text", HttpStatus.OK);
     }
 }
