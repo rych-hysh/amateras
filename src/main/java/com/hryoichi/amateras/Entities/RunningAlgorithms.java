@@ -2,7 +2,6 @@ package com.hryoichi.amateras.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.lang.Nullable;
 
 @Entity
 @Data
@@ -14,10 +13,11 @@ public class RunningAlgorithms {
 
     private int algorithmId;
 
-    @Column(nullable = true)
+    @Column()
     private Integer simulatorId;
 
-    @Column(nullable = true)
+    // TODO:Simulatosと結びついているならアルゴリズムがユーザーと結びつく必要はないのでは
+    @Column()
     private String userUuid;
 
     private boolean isSubscribed;
