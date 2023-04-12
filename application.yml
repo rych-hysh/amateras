@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   datasource:
     # spring boot をWindows上で動かす（debugする）とき
     url: jdbc:mysql://localhost:3306/amateras_db?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
@@ -13,7 +13,7 @@ spring:
   flyway:
     baseline-version: 0
     enabled: true
-    baseline-on-migrate: false
+    baseline-on-migrate: true
 #  sql:
 #    init:
 #      mode: always

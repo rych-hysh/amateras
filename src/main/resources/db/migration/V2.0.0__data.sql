@@ -1,0 +1,1 @@
+INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (0, 0, 0,    null,               0);

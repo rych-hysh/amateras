@@ -1,0 +1,1 @@
+INSERT INTO running_algorithms(algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (1, 0,    null,               0);
