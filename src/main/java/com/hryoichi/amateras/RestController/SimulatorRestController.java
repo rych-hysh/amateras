@@ -25,7 +25,7 @@ public class SimulatorRestController {
     @PostMapping("/update")
     @CrossOrigin
     @ResponseBody
-    private ResponseEntity<String> addSimulator(@RequestBody SimulatorsDto simDto){
+    private ResponseEntity<String> updateSimulator(@RequestBody SimulatorsDto simDto){
         simulatorService.updateSimulator(simDto);
         return new ResponseEntity<>("text", HttpStatus.OK);
     }
