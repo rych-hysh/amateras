@@ -13,6 +13,8 @@ public interface RunningAlgorithmsRepository extends CrudRepository<RunningAlgor
     @Query(value = "SELECT id FROM running_algorithms WHERE simulator_id = :simulatorId AND is_subscribed = true", nativeQuery = true, countQuery = "select 1")
     List<Integer> getSubscribedAlgorithmsIdBySimulatorId(@Param("simulatorId") int simulatorId);
 
+    @Query(value = "SELECT * FROM running_algorithms WHERE simulator_id = :simulatorId AND is_subscribed = true", nativeQuery = true, countQuery = "select 1")
+    List<RunningAlgorithms> getSubscribedAlgorithmsBySimulatorId(@Param("simulatorId") int simulatorId);
     @Query(value = "SELECT * FROM running_algorithms WHERE user_uuid IS NOT NULL AND is_subscribed = true", nativeQuery = true, countQuery = "select 1")
     List<RunningAlgorithms> getLINESubscribedAlgorithms();
 

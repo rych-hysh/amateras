@@ -13,11 +13,9 @@ public class RunningAlgorithms {
 
     private int algorithmId;
 
-    @Column()
     private Integer simulatorId;
 
     // TODO:Simulatosと結びついているならアルゴリズムがユーザーと結びつく必要はないのでは
-    @Column()
     private String userUuid;
 
     private boolean isSubscribed;

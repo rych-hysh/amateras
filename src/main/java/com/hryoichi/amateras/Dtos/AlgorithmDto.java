@@ -1,11 +1,11 @@
-package com.hryoichi.amateras.Models;
+package com.hryoichi.amateras.Dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Algorithm {
+public class AlgorithmDto {
     int id;
     String name;
 }
