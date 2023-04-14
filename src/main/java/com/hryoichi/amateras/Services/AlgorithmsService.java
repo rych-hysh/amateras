@@ -37,6 +37,11 @@ public class AlgorithmsService {
 
     //TODO:
     public void addAlgorithm(RunningAlgorithmDto algDto){
+        List<RunningAlgorithms> existingAlgorithmList = runningAlgorithmsRepository.getSubscribedAlgorithmsBySimulatorId(algDto.getSimulatorId());
+        // 当面は各シミュレータにアルゴリズムは最大一つ
+        if(!existingAlgorithmList.isEmpty()){return;}
+        // 同じアルゴリズムは一つのみ
+        if(existingAlgorithmList.stream().filter(runningAlgorithms -> runningAlgorithms.getAlgorithmId() == algDto.getAlgorithmId()).count() != 0)return;
         var newAlg = new RunningAlgorithms();
         newAlg.setAlgorithmId(algDto.getAlgorithmId());
         newAlg.setSubscribed(algDto.getIsSubscribed());
