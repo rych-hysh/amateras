@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class AlgorithmManageService {
@@ -38,9 +39,10 @@ public class AlgorithmManageService {
         // TODO: Repositoryを直接叩かずServiceを利用する
         List<Simulators> runningSimulatorList = simulatorsRepository.getRunningSimulators();
         runningSimulatorList.forEach(simulator ->{
-            List<Integer> subscribedAlgorithmIdList = runningAlgorithmsRepository.getSubscribedAlgorithmsIdBySimulatorId(simulator.getId());
+            List<Integer> subscribedAlgorithmIdList = runningAlgorithmsRepository.getSubscribedAlgorithmsBySimulatorId(simulator.getId()).stream().map(sim -> sim.getId()).collect(Collectors.toList());
             subscribedAlgorithmIdList.forEach(algorithmId ->{
                 AbstractAlgorithm algorithm = getAlgorithmById(algorithmId);
+                if(Objects.isNull(algorithm))return;
                 AlgorithmResult result = algorithm.checkAlgorithmBySimulatorId(simulator.getId());
                 if(!result.isDoOrder()){
                     return;
@@ -64,7 +66,7 @@ public class AlgorithmManageService {
     private AbstractAlgorithm getAlgorithmById(int algorithmId){
         switch (algorithmId){
             case SampleAlgorithm.ID:
-                return sampleAlgorithm;
+                return new SampleAlgorithm();
             case 1:
                 return sampleAlgorithm;
             case 2:
