@@ -21,6 +21,7 @@ public class SampleAlgorithm extends AbstractAlgorithm {
     @Autowired
     RatesService ratesService;
     static public final int ID = 0;
+    static public final String name = "Sample Algorithm";
     protected void placeTradeNow(int simulatorId, int lots){
         float latestRate = ratesService.getLatestRate();
         positionsRepository.save(new Positions("USD/JPY", 0, true, latestRate, lots, ID, new Date(), false));

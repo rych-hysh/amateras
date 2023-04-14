@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public abstract class AbstractAlgorithm {
-    @Autowired
-    PositionsRepository positionsRepository;
+    static public int ID;
     private float fund;
     abstract protected void placeTradeNow(int simulatorId, int lots);
     abstract protected void closePositionNow(int simulatorId, int lots);
