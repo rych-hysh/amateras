@@ -33,6 +33,7 @@ public class RatesService {
     }
     public float getLatestRate(){return ratesRepository.getLatest().getAskPrice();}
 
+    // TODO: Port to Alpha Vantage Client(not created yet)
     @Scheduled(cron = "0 */5 * * * *", zone = "Asia/Tokyo")
     public void collectCurrentUSD_JPY() {
         ObjectMapper mapper = new ObjectMapper();
