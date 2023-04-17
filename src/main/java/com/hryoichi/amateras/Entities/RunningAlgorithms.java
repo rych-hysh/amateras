@@ -15,7 +15,7 @@ public class RunningAlgorithms {
 
     private Integer simulatorId;
 
-    // TODO:Simulatosと結びついているならアルゴリズムがユーザーと結びつく必要はないのでは
+    // TODO:Simulatorsと結びついているならアルゴリズムがユーザーと結びつく必要はないのでは
     private String userUuid;
 
     private boolean isSubscribed;

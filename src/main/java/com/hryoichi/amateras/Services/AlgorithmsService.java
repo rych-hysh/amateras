@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class AlgorithmsService {
-    private static List<AlgorithmDto> availableAlgorithm = new ArrayList<AlgorithmDto>(Arrays.asList(
+    private static final List<AlgorithmDto> availableAlgorithm = new ArrayList<>(Arrays.asList(
             new AlgorithmDto(1, "Sample Algorithm"),
             new AlgorithmDto(2, "Sample 2")
     ));
@@ -25,9 +25,7 @@ public class AlgorithmsService {
 
     public List<AlgorithmDto> getAlgorithmListByAlgorithmIdList(List<Integer> idList) {
         var algorithmList = new ArrayList<AlgorithmDto>();
-        idList.forEach(id -> {
-            algorithmList.add(getAlgorithmByAlgorithmId(id));
-        });
+        idList.forEach(id -> algorithmList.add(getAlgorithmByAlgorithmId(id)));
         return algorithmList;
     }
 

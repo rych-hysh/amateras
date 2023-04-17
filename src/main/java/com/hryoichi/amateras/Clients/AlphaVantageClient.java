@@ -20,8 +20,8 @@ public class AlphaVantageClient{
     @Value("${alpha-vantage.api-host}")
     String AlphaVantageApiHost;
 
-    String baseUrl;
-    String queriedUrl;
+    final String baseUrl;
+    final String queriedUrl;
     public AlphaVantageClient(){
         baseUrl = "https://" + "alpha-vantage.p.rapidapi.com";
         queriedUrl = baseUrl + "/query?";
