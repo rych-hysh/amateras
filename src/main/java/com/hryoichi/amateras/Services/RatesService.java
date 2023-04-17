@@ -77,6 +77,8 @@ public class RatesService {
             result.add(rateForCandleChartDto);
         }
         HashMap<String, List<Float>> averageAndSigmas = calcAveragesAndSigmas(nForSigma, numOfDataInBar, closes);
+        // 移動平均線や標準偏差（ボリンジャーバンド）の計算のために余分に取得したデータを削除
+        result.subList(0, nForSigma-1).clear();
         for (int j = 0; j < averageAndSigmas.get("averages").size(); j++){
             Float ave = averageAndSigmas.get("averages").get(j);
             Float sig = averageAndSigmas.get("sigmas").get(j);
@@ -106,7 +108,7 @@ public class RatesService {
         return resultHashMap;
     }
 
-    // TODO: Port to Alpha Vantage Client(not created yet)
+    // TODO: Move to Alpha Vantage Client(not created yet)
     @Scheduled(cron = "0 */5 * * * *", zone = "Asia/Tokyo")
     public void collectCurrentUSD_JPY() {
         ObjectMapper mapper = new ObjectMapper();
