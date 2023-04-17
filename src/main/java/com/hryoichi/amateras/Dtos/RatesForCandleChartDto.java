@@ -3,12 +3,12 @@ package com.hryoichi.amateras.Dtos;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 public class RatesForCandleChartDto {
-    Date date;
+    LocalDateTime date;
 
     float low;
 

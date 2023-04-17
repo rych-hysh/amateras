@@ -73,7 +73,7 @@ public class RatesService {
             rateForCandleChartDto.setHigh(high);
             rateForCandleChartDto.setLow(low);
             // TODO: Add date
-            rateForCandleChartDto.setDate(new Date());
+            rateForCandleChartDto.setDate(dataInBar.get(0).getDate());
             result.add(rateForCandleChartDto);
         }
         HashMap<String, List<Float>> averageAndSigmas = calcAveragesAndSigmas(nForSigma, numOfDataInBar, closes);

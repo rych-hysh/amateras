@@ -1,6 +1,6 @@
 package com.hryoichi.amateras.Dtos;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class PositionsDto {
     public int id;
@@ -9,7 +9,7 @@ public class PositionsDto {
     public float atRate;
     public int lots;
     public String algorithmName;
-    public Date atDate;
+    public LocalDateTime atDate;
     public float profits;
     public boolean isSettled;
 }

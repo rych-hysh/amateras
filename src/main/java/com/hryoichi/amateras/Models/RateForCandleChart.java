@@ -1,14 +1,12 @@
 package com.hryoichi.amateras.Models;
 
-import com.hryoichi.amateras.Entities.Rates;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Setter
 public class RateForCandleChart {
-    Date date;
+    LocalDateTime date;
 
     float low;
 

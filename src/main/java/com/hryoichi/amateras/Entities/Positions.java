@@ -1,6 +1,6 @@
 package com.hryoichi.amateras.Entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,11 +29,11 @@ public class Positions {
 
     private Integer algorithmId;
 
-    private Date atDate;
+    private LocalDateTime atDate;
 
     private boolean isSettled;
 
-    public Positions(String pair, Integer simulatorId, boolean isAsk, float atRate, Integer lots, Integer algorithmId, Date atDate, boolean isSettled){
+    public Positions(String pair, Integer simulatorId, boolean isAsk, float atRate, Integer lots, Integer algorithmId, LocalDateTime atDate, boolean isSettled){
         this.pair = pair;
         this.simulatorId = simulatorId;
         this.isAsk = isAsk;
