@@ -29,18 +29,20 @@ public class Positions {
 
     private Integer algorithmId;
 
-    private Date atDate;
+    private Date gotAt;
+    private Date settledAt;
 
     private boolean isSettled;
 
-    public Positions(String pair, Integer simulatorId, boolean isAsk, float atRate, Integer lots, Integer algorithmId, Date atDate, boolean isSettled){
+    public Positions(String pair, Integer simulatorId, boolean isAsk, float atRate, Integer lots, Integer algorithmId, Date gotAt, Date settledAt, boolean isSettled){
         this.pair = pair;
         this.simulatorId = simulatorId;
         this.isAsk = isAsk;
         this.atRate = atRate;
         this.lots = lots;
         this.algorithmId = algorithmId;
-        this.atDate = atDate;
+        this.gotAt = gotAt;
+        this.settledAt = settledAt;
         this.isSettled = isSettled;
     }
 }

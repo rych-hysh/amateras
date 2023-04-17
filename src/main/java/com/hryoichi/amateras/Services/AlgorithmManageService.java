@@ -8,7 +8,6 @@ import com.hryoichi.amateras.Entities.Simulators;
 import com.hryoichi.amateras.Events.AlgorithmCheck;
 import com.hryoichi.amateras.Models.AlgorithmResult;
 import com.hryoichi.amateras.Repositories.PositionsRepository;
-import com.hryoichi.amateras.Repositories.RatesRepository;
 import com.hryoichi.amateras.Repositories.RunningAlgorithmsRepository;
 import com.hryoichi.amateras.Repositories.SimulatorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class AlgorithmManageService {
@@ -39,7 +37,7 @@ public class AlgorithmManageService {
         // TODO: Repositoryを直接叩かずServiceを利用する
         List<Simulators> runningSimulatorList = simulatorsRepository.getRunningSimulators();
         runningSimulatorList.forEach(simulator ->{
-            List<Integer> subscribedAlgorithmIdList = runningAlgorithmsRepository.getSubscribedAlgorithmsBySimulatorId(simulator.getId()).stream().map(sim -> sim.getId()).collect(Collectors.toList());
+            List<Integer> subscribedAlgorithmIdList = runningAlgorithmsRepository.getSubscribedAlgorithmsBySimulatorId(simulator.getId()).stream().map(RunningAlgorithms::getId).toList();
             subscribedAlgorithmIdList.forEach(algorithmId ->{
                 AbstractAlgorithm algorithm = getAlgorithmById(algorithmId);
                 if(Objects.isNull(algorithm))return;
@@ -49,9 +47,9 @@ public class AlgorithmManageService {
                 }
                 Positions order;
                 if(result.isSettle()){
-                    order = new Positions(result.getSettlePositionId(), "USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, new Date(), true);
+                    order = new Positions(result.getSettlePositionId(), "USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, new Date(), new Date(), true);
                 }else{
-                    order = new Positions("USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, new Date(), false);
+                    order = new Positions("USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, new Date(), null, false);
                 }
                 positionsRepository.save(order);
 //                if(simulatorId.isRequireNotice){
@@ -64,23 +62,15 @@ public class AlgorithmManageService {
     }
 
     private AbstractAlgorithm getAlgorithmById(int algorithmId){
-        switch (algorithmId){
-            case SampleAlgorithm.ID:
-                return new SampleAlgorithm();
-            case 1:
-                return sampleAlgorithm;
-            case 2:
-                return sampleAlgorithm;
-            case 3:
-                return sampleAlgorithm;
-            case 4:
-                return sampleAlgorithm;
-            case 5:
-                return sampleAlgorithm;
-            case 6:
-                return sampleAlgorithm;
-            default:
-                return null;
-        }
+        return switch (algorithmId) {
+            case SampleAlgorithm.ID -> new SampleAlgorithm();
+            case 1 -> sampleAlgorithm;
+            case 2 -> sampleAlgorithm;
+            case 3 -> sampleAlgorithm;
+            case 4 -> sampleAlgorithm;
+            case 5 -> sampleAlgorithm;
+            case 6 -> sampleAlgorithm;
+            default -> null;
+        };
     }
 }

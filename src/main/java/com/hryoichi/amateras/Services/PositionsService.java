@@ -28,14 +28,14 @@ public class PositionsService {
         positionsDto.atRate = position.getAtRate();
         positionsDto.lots = position.getLots();
         positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorigthmNameById
-        positionsDto.atDate = position.getAtDate();
+        positionsDto.gotAt = position.getGotAt();
+        positionsDto.settledAt = position.getSettledAt();
         positionsDto.profits = (positionsDto.atRate - ratesService.getLatestRate()) * position.getLots() * (position.isAsk() ? 1 : -1);
         positionsDto.isSettled = position.isSettled();
         return positionsDto;
     }
 
     public List<PositionsDto> getPositionsDtoListOf(List<Positions> positionsList){
-        List<PositionsDto> positionsDtoList = positionsList.stream().map(this::of).collect(Collectors.toList());
-        return positionsDtoList;
+        return positionsList.stream().map(this::of).collect(Collectors.toList());
     }
 }

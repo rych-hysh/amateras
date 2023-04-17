@@ -9,7 +9,8 @@ public class PositionsDto {
     public float atRate;
     public int lots;
     public String algorithmName;
-    public Date atDate;
+    public Date gotAt;
+    public Date settledAt;
     public float profits;
     public boolean isSettled;
 }
