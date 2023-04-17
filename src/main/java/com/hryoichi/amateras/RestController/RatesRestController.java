@@ -1,22 +1,17 @@
 package com.hryoichi.amateras.RestController;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hryoichi.amateras.Dtos.RatesForCandleChartDto;
 import com.hryoichi.amateras.Entities.Rates;
 import com.hryoichi.amateras.Services.RatesService;
-import org.slf4j.LoggerFactory;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/rates")
@@ -27,6 +22,11 @@ public class RatesRestController {
     @GetMapping("/all")
     public @ResponseBody Iterable<Rates> getAllRates(){
         return ratesService.getAllRates();
+    }
+
+    @GetMapping("candle")
+    public @ResponseBody List<RatesForCandleChartDto> getRatesForCandleDto(@RequestParam(name = "endingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endingDate, @RequestParam(name = "numOfBar") int numOfBar, @RequestParam(name = "dataInBar") int dataInBar) {
+        return ratesService.getRateForCandleChartDtoList(endingDate, numOfBar, dataInBar);
     }
 
     @GetMapping("/collect")

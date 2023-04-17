@@ -1,10 +1,11 @@
 package com.hryoichi.amateras.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hryoichi.amateras.Dtos.RateListForCandleChartDto;
+import com.hryoichi.amateras.Dtos.RatesForCandleChartDto;
 import com.hryoichi.amateras.Entities.Rates;
 import com.hryoichi.amateras.Events.Publisher.RatesUpdatedPublisher;
 import com.hryoichi.amateras.Repositories.RatesRepository;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
@@ -14,8 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 @Service
 public class RatesService {
@@ -32,6 +37,28 @@ public class RatesService {
         return ratesRepository.findAll();
     }
     public float getLatestRate(){return ratesRepository.getLatest().getAskPrice();}
+
+    public List<RatesForCandleChartDto> getRateForCandleChartDtoList(LocalDateTime endingDate, int numOfBar, int dataInBar){
+        int numOfData = dataInBar * numOfBar;
+
+        //endingDate = endingDate.minusHours(48);
+        List<Rates> ratesFromRepository = ratesRepository.getRatesBeforeDate(endingDate, numOfData);
+        //ratesRepository.getRatesAfterDate()
+        //TODO: ratesFromRepository is possibly null.
+        int gotMinutes =ratesFromRepository.stream().findFirst().get().getDate().getMinute();
+        while(!(gotMinutes == 00 || gotMinutes == 59)){
+            ratesFromRepository.remove(0);
+            gotMinutes =ratesFromRepository.stream().findFirst().get().getDate().getMinute()
+        }
+        for(int i = 0; i < ratesFromRepository.size(); i++){
+            if(){
+                ratesFromRepository.remove(i);
+                i++;
+            }
+        }
+        var v = ratesFromRepository;
+        return new ArrayList<>();
+    }
 
     // TODO: Port to Alpha Vantage Client(not created yet)
     @Scheduled(cron = "0 */5 * * * *", zone = "Asia/Tokyo")

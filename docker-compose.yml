@@ -10,6 +10,7 @@ services:
     volumes:
       - ./Database/init:/docker-entrypoint-initdb.d
       - ./Database/mysql.cnf:/etc/mysql/conf.d/my.cnf
+      - ./data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: amateras_db
       MYSQL_ROOT_USER: root
