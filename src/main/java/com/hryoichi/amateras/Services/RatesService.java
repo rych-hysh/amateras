@@ -46,10 +46,10 @@ public class RatesService {
         int gotMinutes =ratesFromRepository.stream().findFirst().get().getDate().getMinute();
         // 当面は1時間足のみ
         // データの先頭を時間足の先頭にする処理
-//        while(!(gotMinutes == 0 || gotMinutes == 59)){
-//            ratesFromRepository.remove(0);
-//            gotMinutes = ratesFromRepository.stream().findFirst().get().getDate().getMinute();
-//        }
+        while(!(gotMinutes == 0 || gotMinutes == 59)){
+            ratesFromRepository.remove(0);
+            gotMinutes = ratesFromRepository.stream().findFirst().get().getDate().getMinute();
+        }
 
         List<RatesForCandleChartDto> result = new ArrayList<>();
         // ローソク一本分のデータ毎に取得して最小値や最大値の計算
@@ -63,7 +63,7 @@ public class RatesService {
             }
             List<Float> askRates = dataInBar.stream().map(Rates::getAskPrice).toList();
             Float open = askRates.stream().findFirst().orElse((float) 0);
-            Float close = askRates.get(numOfDataInBar - 1);
+            Float close = askRates.get(dataInBar.size() - 1);
             closes.add(close);
             Float high = askRates.stream().max(Comparator.naturalOrder()).orElse((float) 0);
             Float low = askRates.stream().min(Comparator.naturalOrder()).orElse((float) 0);
