@@ -23,9 +23,10 @@ public class RatesRestController {
     }
 
     @GetMapping("candle")
-    public @ResponseBody List<RatesForCandleChartDto> getRatesForCandleDto(@RequestParam(name = "endingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endingDate, @RequestParam(name = "numOfBar") int numOfBar, @RequestParam(name = "dataInBar") int dataInBar, @RequestParam(name = "nForSigma", required = false) Optional<Integer> nForSigma) {
+    public @ResponseBody List<RatesForCandleChartDto> getRatesForCandleDto(@RequestParam(name = "endingDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Optional<LocalDateTime> endingDate, @RequestParam(name = "numOfBar") int numOfBar, @RequestParam(name = "dataInBar") int dataInBar, @RequestParam(name = "nForSigma", required = false) Optional<Integer> nForSigma) {
         Integer n = nForSigma.orElse(20);
-        return ratesService.getRateForCandleChartDtoList(endingDate, numOfBar, dataInBar, n);
+        LocalDateTime date = endingDate.orElse(LocalDateTime.now());
+        return ratesService.getRateForCandleChartDtoList(date, numOfBar, dataInBar, n);
     }
 
     @GetMapping("/collect")
