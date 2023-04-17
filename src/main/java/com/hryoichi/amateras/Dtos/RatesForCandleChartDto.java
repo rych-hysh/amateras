@@ -1,10 +1,12 @@
 package com.hryoichi.amateras.Dtos;
 
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Setter
+@Data
+@NoArgsConstructor
 public class RatesForCandleChartDto {
     Date date;
 
