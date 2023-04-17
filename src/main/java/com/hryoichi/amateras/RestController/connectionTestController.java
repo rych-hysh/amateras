@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-
 @RestController
 @RequestMapping("test")
 public class connectionTestController {
@@ -16,10 +14,10 @@ public class connectionTestController {
     @Autowired
     LINEMessagingService lineMessagingService;
     @Value("${spring.profiles.active}")
-    private String prof;
+    String prof;
 
     @Value("${test}")
-    private String test;
+    String test;
 
     @GetMapping("/connection")
     String connectionTest(){
@@ -35,8 +33,8 @@ public class connectionTestController {
     }
 
     @GetMapping("/line")
-    void lineSendTest() throws IOException {
-        lineMessagingService.sendTestMessge();
+    void lineSendTest() {
+        lineMessagingService.sendTestMessage();
     }
 
 }

@@ -1,29 +1,16 @@
 package com.hryoichi.amateras.Services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hryoichi.amateras.Models.FlexMessage;
-import com.hryoichi.amateras.Models.LineMessage;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import com.hryoichi.amateras.Clients.LINEMessagingClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
-import java.util.*;
 
 @Service
 public class LINEMessagingService {
 
-    @Value("${line.post-url}")
-    String messagePostUrl;
+    @Autowired
+    LINEMessagingClient lineMessagingClient;
 
-    @Value("${line.channel-access-token}")
-    String accessToken;
-
-    public void sendTestMessge() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
+    public void sendTestMessage() {
         String jsonFlex = "{" +
                 "  \"type\": \"bubble\"," +
                 "  \"body\": {" +
@@ -111,33 +98,6 @@ public class LINEMessagingService {
                 "    \"paddingAll\": \"0px\"" +
                 "  }" +
                 "}";
-        FlexMessage flexMessage = new FlexMessage();
-        flexMessage.setAltText("laugh");
-        flexMessage.setContents(mapper.readValue(jsonFlex, Object.class));
-        LineMessage lineMessage = new LineMessage();
-
-        lineMessage.setTo("Ufe530665f25924f84bf6fd10d91cb8c3");
-        lineMessage.setMessages(new ArrayList<>(List.of(flexMessage)));
-
-        String json = mapper.writeValueAsString(lineMessage);
-        final var randomRetryKey = generateRetryKey();
-        RequestEntity<Object> req = RequestEntity
-                .post(messagePostUrl)
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + accessToken)
-                .header("X-Line-Retry-Key", String.valueOf(randomRetryKey))
-                .accept(MediaType.APPLICATION_JSON)
-                .body(json);
-        try{
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<LinkedHashMap> response = restTemplate.exchange(req, LinkedHashMap.class);
-            LinkedHashMap<String, LinkedHashMap> res = response.getBody();
-        }catch(Exception error){
-            final var s = error.toString();
-        }
-    }
-
-    UUID generateRetryKey(){
-        return UUID.randomUUID();
+        lineMessagingClient.sendFlexMessage(jsonFlex, "sent by amateras.", "Ufe530665f25924f84bf6fd10d91cb8c3");
     }
 }
