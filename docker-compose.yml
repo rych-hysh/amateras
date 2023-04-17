@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    container_name: "spring_db"
+    container_name: "amateras_db_container"
     build:
       context: .
       dockerfile: ./Database/Dockerfile
