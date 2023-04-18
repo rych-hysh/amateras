@@ -1,11 +1,13 @@
 package com.hryoichi.amateras.Services;
 
+import com.hryoichi.amateras.Dtos.HistoryDto;
 import com.hryoichi.amateras.Dtos.PositionsDto;
 import com.hryoichi.amateras.Entities.Positions;
 import com.hryoichi.amateras.Repositories.PositionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,25 +18,45 @@ public class PositionsService {
     @Autowired
     RatesService ratesService;
 
-    public List<Positions> getPositionsBySimulatorId(int simulatorId) {
-        return positionsRepository.getPositionsBySimulatorId(simulatorId);
+    public List<Positions> getOpenedPositionsBySimulatorId(int simulatorId) {
+        return positionsRepository.getOpenedPositionsBySimulatorId(simulatorId);
     }
 
-    public PositionsDto of(Positions position){
+    public List<Positions> getClosedPositionsBySimulatorId(int simulatorId) {
+        return positionsRepository.getClosedPositionsBySimulatorId(simulatorId);
+    }
+    public PositionsDto getPositionsDtoOf(Positions position){
         PositionsDto positionsDto = new PositionsDto();
         positionsDto.id = position.getId();
         positionsDto.pair = position.getPair();
         positionsDto.askOrBid = position.isAsk() ? "ask" : "bid";
-        positionsDto.atRate = position.getAtRate();
+        positionsDto.gotRate = position.getGotRate();
         positionsDto.lots = position.getLots();
-        positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorithmNameById
-        positionsDto.atDate = position.getAtDate();
-        positionsDto.profits = (positionsDto.atRate - ratesService.getLatestRate()) * position.getLots() * (position.isAsk() ? 1 : -1);
-        positionsDto.isSettled = position.isSettled();
+        positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorigthmNameById
+        positionsDto.gotDate = position.getGotDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+        positionsDto.profits = (positionsDto.gotRate - ratesService.getLatestRate()) * position.getLots() * (position.isAsk() ? 1 : -1);
+
         return positionsDto;
     }
 
+    public HistoryDto getHistoryDtoOf(Positions position){
+        HistoryDto historyDto = new HistoryDto();
+        historyDto.setId(position.getId());
+        historyDto.setAskOrBid(position.isAsk() ? "ask" : "bid");
+        historyDto.setSettledRate(position.getSettledRate());
+        historyDto.setLots(position.getLots());
+        historyDto.setAlgorithmName(position.getAlgorithmId().toString());
+        historyDto.setProfits((position.getSettledRate() - position.getGotRate()) * position.getLots());
+        historyDto.setSettledDate(position.getSettledDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+        historyDto.setPair(position.getPair());
+        return historyDto;
+    }
+
     public List<PositionsDto> getPositionsDtoListOf(List<Positions> positionsList){
-        return positionsList.stream().map(this::of).collect(Collectors.toList());
+        return positionsList.stream().map(this::getPositionsDtoOf).collect(Collectors.toList());
+    }
+
+    public List<HistoryDto> getHistoryDtoListOf(List<Positions> positionsList){
+        return positionsList.stream().map(this::getHistoryDtoOf).collect(Collectors.toList());
     }
 }

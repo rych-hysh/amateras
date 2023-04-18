@@ -12,6 +12,9 @@ import java.util.List;
 public interface PositionsRepository extends CrudRepository<Positions, Integer> {
     @Query(value = "SELECT * from positions", nativeQuery = true, countQuery = "select 1")
     List<Positions> queryAll();
-    @Query(value = "SELECT * FROM positions WHERE simulator_id = :simulatorId", nativeQuery = true, countQuery = "select 1")
-    List<Positions> getPositionsBySimulatorId(@Param("simulatorId") int simulatorId);
+    @Query(value = "SELECT * FROM positions WHERE simulator_id = :simulatorId AND is_settled = false", nativeQuery = true, countQuery = "select 1")
+    List<Positions> getOpenedPositionsBySimulatorId(@Param("simulatorId") int simulatorId);
+
+    @Query(value = "SELECT * FROM positions WHERE simulator_id = :simulatorId AND is_settled = true", nativeQuery = true, countQuery = "select 1")
+    List<Positions> getClosedPositionsBySimulatorId(@Param("simulatorId") int simulatorId);
 }
