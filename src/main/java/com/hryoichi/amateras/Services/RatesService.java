@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -101,6 +102,10 @@ public class RatesService {
 
     @Scheduled(cron = "0 */5 * * * *", zone = "Asia/Tokyo")
     public void collectCurrentUSD_JPY() {
+        LocalDateTime now = LocalDateTime.now();
+        if(now.getDayOfWeek()  == DayOfWeek.SUNDAY) return;
+        if(now.getDayOfWeek() == DayOfWeek.SATURDAY && now.getHour() >= 5 ) return;
+        if(now.getDayOfWeek() == DayOfWeek.MONDAY && now.getHour() <= 5) return;
         Rates currentRate = alphaVantageClient.getCurrentRate();
         ratesRepository.save(currentRate);
         ratesUpdatedPublisher.Updated();
