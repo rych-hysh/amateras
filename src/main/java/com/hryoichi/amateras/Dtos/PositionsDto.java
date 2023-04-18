@@ -1,16 +1,26 @@
 package com.hryoichi.amateras.Dtos;
 
-import java.util.Date;
-
 public class PositionsDto {
     public int id;
     public String pair;
     public String askOrBid;
-    public float atRate;
+
+    public float gotRate;
     public int lots;
     public String algorithmName;
-    public Date gotAt;
-    public Date settledAt;
+    public String gotDate;
     public float profits;
-    public boolean isSettled;
 }
+
+/*
+*
+	id: number,
+	askOrBid: string,
+	gotRate: number,
+	profits: number,
+	lots: number,
+	algorithmName: string,
+	gotDate: String,
+	pair: String,
+*
+* */
