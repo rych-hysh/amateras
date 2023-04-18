@@ -8,7 +8,6 @@ import com.hryoichi.amateras.Services.RatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -21,7 +20,7 @@ public class SampleAlgorithm extends AbstractAlgorithm {
     static public final String name = "Sample Algorithm";
     protected void placeTradeNow(int simulatorId, int lots){
         float latestRate = ratesService.getLatestRate();
-        positionsRepository.save(new Positions("USD/JPY", 0, true, latestRate, lots, ID, new Date(), null, false));
+        // positionsRepository.save(new Positions("USE/JPY", simulatorId, true, ...));
     }
     protected void closePositionNow(int simulatorId, int lots){
     }
@@ -30,7 +29,7 @@ public class SampleAlgorithm extends AbstractAlgorithm {
     }
 
     public AlgorithmResult checkAlgorithmBySimulatorId(int simulatorId){
-        List<Positions> positionList = positionsRepository.getPositionsBySimulatorId(simulatorId);
+        List<Positions> positionList = positionsRepository.getOpenedPositionsBySimulatorId(simulatorId);
         if(positionList.isEmpty()){
             return new AlgorithmResult("USD/JPY", true, true, 1, false, 0);
         }else{
