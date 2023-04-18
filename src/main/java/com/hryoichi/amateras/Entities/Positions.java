@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 @Entity
@@ -24,6 +25,7 @@ public class Positions {
 
     private boolean isAsk;
 
+    @NonNull
     private float gotRate;
     @Nullable
     private float settledRate;
@@ -32,6 +34,7 @@ public class Positions {
 
     private Integer algorithmId;
 
+    @NonNull
     private LocalDateTime gotDate;
     private LocalDateTime settledDate;
 
