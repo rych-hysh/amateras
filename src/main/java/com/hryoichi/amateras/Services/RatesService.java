@@ -64,7 +64,6 @@ public class RatesService {
             rateForCandleChartDto.setClose(close);
             rateForCandleChartDto.setHigh(high);
             rateForCandleChartDto.setLow(low);
-            // TODO: Add date
             rateForCandleChartDto.setDate(dataInBar.get(0).getDate());
             result.add(rateForCandleChartDto);
         }
@@ -100,7 +99,6 @@ public class RatesService {
         return resultHashMap;
     }
 
-    // TODO: Move to Alpha Vantage Client(not created yet)
     @Scheduled(cron = "0 */5 * * * *", zone = "Asia/Tokyo")
     public void collectCurrentUSD_JPY() {
         Rates currentRate = alphaVantageClient.getCurrentRate();
