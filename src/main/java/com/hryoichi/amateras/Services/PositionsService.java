@@ -27,7 +27,7 @@ public class PositionsService {
         positionsDto.askOrBid = position.isAsk() ? "ask" : "bid";
         positionsDto.atRate = position.getAtRate();
         positionsDto.lots = position.getLots();
-        positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorigthmNameById
+        positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorithmNameById
         positionsDto.atDate = position.getAtDate();
         positionsDto.profits = (positionsDto.atRate - ratesService.getLatestRate()) * position.getLots() * (position.isAsk() ? 1 : -1);
         positionsDto.isSettled = position.isSettled();
@@ -35,7 +35,6 @@ public class PositionsService {
     }
 
     public List<PositionsDto> getPositionsDtoListOf(List<Positions> positionsList){
-        List<PositionsDto> positionsDtoList = positionsList.stream().map(this::of).collect(Collectors.toList());
-        return positionsDtoList;
+        return positionsList.stream().map(this::of).collect(Collectors.toList());
     }
 }

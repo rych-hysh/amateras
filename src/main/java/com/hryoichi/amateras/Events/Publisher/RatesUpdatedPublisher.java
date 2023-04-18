@@ -1,6 +1,5 @@
 package com.hryoichi.amateras.Events.Publisher;
 
-import com.hryoichi.amateras.Entities.Rates;
 import com.hryoichi.amateras.Events.AlgorithmCheck;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
