@@ -15,8 +15,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class AlgorithmManageService {
@@ -47,9 +47,9 @@ public class AlgorithmManageService {
                 }
                 Positions order;
                 if(result.isSettle()){
-                    order = new Positions(result.getSettlePositionId(), "USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, new Date(), true);
+                    order = new Positions(result.getSettlePositionId(), "USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, LocalDateTime.now(), true);
                 }else{
-                    order = new Positions("USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, new Date(), false);
+                    order = new Positions("USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(), result.getLots(), algorithmId, LocalDateTime.now(), false);
                 }
                 positionsRepository.save(order);
 //                if(simulatorId.isRequireNotice){
