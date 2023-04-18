@@ -41,6 +41,7 @@ public class Positions {
     private boolean isSettled;
 
     public Positions(String pair, Integer simulatorId, boolean isAsk, float gotRate, float settledRate, Integer lots, Integer algorithmId, LocalDateTime gotDate, LocalDateTime settledDate, boolean isSettled){
+
         this.pair = pair;
         this.simulatorId = simulatorId;
         this.isAsk = isAsk;

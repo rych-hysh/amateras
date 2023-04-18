@@ -10,5 +10,4 @@ public class AlgorithmCheck extends ApplicationEvent {
     public float gotCurrentRate(float rate){
         return rate;
     }
-    public String check(){return "success";}
 }

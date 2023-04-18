@@ -34,7 +34,6 @@ public class AlgorithmManageService {
     @EventListener
     @Async
     public void onRateUpdated(AlgorithmCheck event){
-        final var res = event.check();
         // TODO: Repositoryを直接叩かずServiceを利用する
         List<Simulators> runningSimulatorList = simulatorsRepository.getRunningSimulators();
         runningSimulatorList.forEach(simulator ->{
