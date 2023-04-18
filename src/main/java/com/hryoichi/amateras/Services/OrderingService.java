@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
-public class AlgorithmManageService {
+public class OrderingService {
     @Autowired
     SimulatorsRepository simulatorsRepository;
     @Autowired
