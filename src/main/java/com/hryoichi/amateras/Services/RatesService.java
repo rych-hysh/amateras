@@ -30,7 +30,7 @@ public class RatesService {
     public List<RatesForCandleChartDto> getRateForCandleChartDtoList(LocalDateTime endingDate, int numOfBar, int numOfDataInBar, int nForSigma){
         // TODO: nForSigmaがnumOfBarより小さい場合の例外処理
         // TODO: nForSigma, numOfBar, numOfDataInBar の関係を調べて例外処理
-        // sigmaの計算のためにnForSigma本前のデータから取得する。
+        // sigmaの計算のためにnForSigma-1本前のデータから取得する。
         int numOfData = numOfDataInBar * (numOfBar + nForSigma - 1);
         List<Rates> ratesFromRepository = ratesRepository.getRatesBeforeDate(endingDate, numOfData);
         //ratesRepository.getRatesAfterDate()
