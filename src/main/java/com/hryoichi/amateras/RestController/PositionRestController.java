@@ -1,5 +1,6 @@
 package com.hryoichi.amateras.RestController;
 
+import com.hryoichi.amateras.Dtos.HistoryDto;
 import com.hryoichi.amateras.Dtos.PositionsDto;
 import com.hryoichi.amateras.Services.PositionsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,13 @@ import java.util.List;
 public class PositionRestController {
     @Autowired
     private PositionsService positionsService;
-    @GetMapping("/{simulatorId}")
-    public @ResponseBody List<PositionsDto> getPositionsBySimulatorId(@PathVariable("simulatorId") int simulatorId){
-        return positionsService.getPositionsDtoListOf(positionsService.getPositionsBySimulatorId(simulatorId));
+    @GetMapping("/{simulatorId}/unsettled")
+    public @ResponseBody List<PositionsDto> getOpenedPositionsBySimulatorId(@PathVariable("simulatorId") int simulatorId){
+        return positionsService.getPositionsDtoListOf(positionsService.getOpenedPositionsBySimulatorId(simulatorId));
+    }
+
+    @GetMapping("/{simulatorId}/settled")
+    public @ResponseBody List<HistoryDto> getClosedPositionsBySimulatorId(@PathVariable("simulatorId") int simulatorId){
+        return positionsService.getHistoryDtoListOf(positionsService.getClosedPositionsBySimulatorId(simulatorId));
     }
 }

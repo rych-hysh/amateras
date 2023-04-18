@@ -28,3 +28,9 @@ INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid,
 INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (4, 2, 2,    null,               1);
 INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (5, 2, 5,    null,               1);
 INSERT IGNORE INTO running_algorithms(id, algorithm_id, simulator_id, user_uuid, is_subscribed) VALUES (6, 1, null, "TestUser2Uuid",    1);
+
+INSERT IGNORE INTO positions(id, pair,      simulator_id,   is_ask,     lots,   algorithm_id,   got_date,               got_rate,           is_settled) VALUES
+                            (33, "USD/JPY", 2,              true,       1,      1,              '2019-10-01 12:30:00',  125 + 15* rand(),   0);
+
+INSERT IGNORE INTO positions(id, pair,      simulator_id,   is_ask,     lots,   algorithm_id,   got_date,               got_rate,           settled_date,           settled_rate,       is_settled) VALUES
+                            (35, "USD/JPY", 2,              true,       1,      1,              '2019-10-01 12:30:00',  125 + 15* rand(),   '2019-10-01 13:30:00',  125 + 15* rand(),   true);

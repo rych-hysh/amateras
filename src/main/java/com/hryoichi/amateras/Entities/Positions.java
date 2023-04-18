@@ -1,11 +1,13 @@
 package com.hryoichi.amateras.Entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Data
@@ -23,24 +25,42 @@ public class Positions {
 
     private boolean isAsk;
 
-    private float atRate;
+    @NonNull
+    private float gotRate;
+    @Nullable
+    private float settledRate;
 
     private Integer lots;
 
     private Integer algorithmId;
 
-    private Date atDate;
+    @NonNull
+    private LocalDateTime gotDate;
+    private LocalDateTime settledDate;
 
     private boolean isSettled;
 
-    public Positions(String pair, Integer simulatorId, boolean isAsk, float atRate, Integer lots, Integer algorithmId, Date atDate, boolean isSettled){
+    public Positions(String pair, Integer simulatorId, boolean isAsk, float gotRate, float settledRate, Integer lots, Integer algorithmId, LocalDateTime gotDate, LocalDateTime settledDate, boolean isSettled){
+
         this.pair = pair;
         this.simulatorId = simulatorId;
         this.isAsk = isAsk;
-        this.atRate = atRate;
+        this.gotRate = gotRate;
+        this.settledRate = settledRate;
         this.lots = lots;
         this.algorithmId = algorithmId;
-        this.atDate = atDate;
+        this.gotDate = gotDate;
+        this.settledDate = settledDate;
         this.isSettled = isSettled;
+    }
+    public Positions(String pair, Integer simulatorId, boolean isAsk, float gotRate, Integer lots, Integer algorithmId, LocalDateTime gotDate){
+        this.pair = pair;
+        this.simulatorId = simulatorId;
+        this.isAsk = isAsk;
+        this.gotRate = gotRate;
+        this.lots = lots;
+        this.algorithmId = algorithmId;
+        this.gotDate = gotDate;
+        this.isSettled = false;
     }
 }

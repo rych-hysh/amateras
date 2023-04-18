@@ -11,6 +11,8 @@ application-prod.yml
 node_modules
 front/node_modules
 
+data
+
 ### STS ###
 .apt_generated
 .classpath

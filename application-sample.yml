@@ -1,0 +1,28 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    # spring boot をWindows上で動かす（debugする）とき
+    url: jdbc:mysql://localhost:3306/amateras_db?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    # spring boot をdocker上で動かす（docker-compose upする）とき
+    # url: jdbc:mysql://db:3306/forex_rate?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#  sql:
+#    init:
+#      mode: always
+#      enabled: true
+#      data-locations: classpath:data.sql
+server:
+  port: 8080
+
+alpha-vantage:
+  api-app:
+  api-key:
+  api-host:
+
+line:
+  post-url:
+  channel-access-token:
