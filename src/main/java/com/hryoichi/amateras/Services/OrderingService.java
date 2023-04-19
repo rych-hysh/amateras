@@ -53,7 +53,7 @@ public class OrderingService {
                 Funds updatedFunds;
                 if(result.isSettle()){
                     float gotRate = positionsRepository.findById(result.getSettlePositionId()).orElseThrow().getGotRate();
-                    order = new Positions(result.getSettlePositionId(), "USD/JPY", simulator.getId(), result.isAsk(), ratesService.getLatestRate(),ratesService.getLatestRate(),  result.getLots(), algorithmId, LocalDateTime.now(), LocalDateTime.now(), true);
+                    order = new Positions(result.getSettlePositionId(), "USD/JPY", simulator.getId(), result.isAsk(), gotRate, ratesService.getLatestRate(),  result.getLots(), algorithmId, LocalDateTime.now(), LocalDateTime.now(), true);
                     updatedFunds = new Funds(simulator.getId(), algorithmId, LocalDateTime.now(), currentFunds + gotRate + (ratesService.getLatestRate() - gotRate) * (float) result.getLots() * 1000f * (result.isAsk() ? 1f : -1f));
                 }else{
                     // 新規注文
