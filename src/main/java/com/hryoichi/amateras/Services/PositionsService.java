@@ -39,7 +39,7 @@ public class PositionsService {
         positionsDto.lots = position.getLots();
         positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorigthmNameById
         positionsDto.gotDate = position.getGotDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
-        positionsDto.profits = (positionsDto.gotRate - ratesService.getLatestRate()) * position.getLots() * (position.isAsk() ? 1 : -1);
+        positionsDto.profits = (ratesService.getLatestRate() - position.getGotRate()) * (float) position.getLots() * 1000f * (position.isAsk() ? 1f : -1f);
 
         return positionsDto;
     }
@@ -51,7 +51,7 @@ public class PositionsService {
         historyDto.setSettledRate(position.getSettledRate());
         historyDto.setLots(position.getLots());
         historyDto.setAlgorithmName(position.getAlgorithmId().toString());
-        historyDto.setProfits((position.getSettledRate() - position.getGotRate()) * position.getLots());
+        historyDto.setProfits((position.getSettledRate() - position.getGotRate()) * (float) position.getLots() * 1000f * (position.isAsk() ? 1f : -1f));
         historyDto.setSettledDate(position.getSettledDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
         historyDto.setPair(position.getPair());
         return historyDto;
