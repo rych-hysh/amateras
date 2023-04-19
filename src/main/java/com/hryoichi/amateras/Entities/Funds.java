@@ -2,11 +2,13 @@ package com.hryoichi.amateras.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Funds {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "funds_seq")
