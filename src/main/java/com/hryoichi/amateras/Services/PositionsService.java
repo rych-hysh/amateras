@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +20,15 @@ public class PositionsService {
     RatesService ratesService;
 
     public List<Positions> getOpenedPositionsBySimulatorId(int simulatorId) {
-        return positionsRepository.getOpenedPositionsBySimulatorId(simulatorId);
+        List<Positions> openedPositions =positionsRepository.getOpenedPositionsBySimulatorId(simulatorId);
+        Collections.reverse(openedPositions);
+        return openedPositions;
     }
 
     public List<Positions> getClosedPositionsBySimulatorId(int simulatorId) {
-        return positionsRepository.getClosedPositionsBySimulatorId(simulatorId);
+        List<Positions> closedPositions = positionsRepository.getClosedPositionsBySimulatorId(simulatorId);
+        Collections.reverse(closedPositions);
+        return closedPositions;
     }
     public PositionsDto getPositionsDtoOf(Positions position){
         PositionsDto positionsDto = new PositionsDto();
