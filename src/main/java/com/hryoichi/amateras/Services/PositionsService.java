@@ -34,7 +34,7 @@ public class PositionsService {
         positionsDto.lots = position.getLots();
         positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorigthmNameById
         positionsDto.gotDate = position.getGotDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
-        positionsDto.profits = (positionsDto.gotRate - ratesService.getLatestRate()) * position.getLots() * (position.isAsk() ? 1 : -1);
+        positionsDto.profits = (ratesService.getLatestRate() - position.getGotRate()) * (float) position.getLots() * 1000f * (position.isAsk() ? 1f : -1f);
 
         return positionsDto;
     }
