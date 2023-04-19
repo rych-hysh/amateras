@@ -19,6 +19,12 @@ public class Funds {
 
   private LocalDateTime updateDate;
 
-  private float fund;
+  private float funds;
 
+  public Funds(int simulatorId, int algorithmId, LocalDateTime updateDate, float funds){
+    this.simulatorId = simulatorId;
+    this.algorithmId = algorithmId;
+    this.updateDate = updateDate;
+    this.funds = funds;
+  }
 }

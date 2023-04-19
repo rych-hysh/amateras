@@ -30,10 +30,15 @@ public class SampleAlgorithm extends AbstractAlgorithm {
 
     public AlgorithmResult checkAlgorithmBySimulatorId(int simulatorId){
         List<Positions> positionList = positionsRepository.getOpenedPositionsBySimulatorId(simulatorId);
-        if(positionList.isEmpty()){
-            return new AlgorithmResult("USD/JPY", true, true, 1, false, 0);
+        // TODO: AlgorithmResultの返し方を考え直すこと
+        if(!positionList.isEmpty()){
+            if ( Math.abs(positionList.get(0).getGotRate() - ratesService.getLatestRate()) > 0.5) {
+                return new AlgorithmResult("USD/JPY", true, true, 1, true, positionList.get(0).getId());
+            }
         }else{
-            return new AlgorithmResult("USD/JPY", true, true, 1, true, positionList.get(0).getId());
+            return new AlgorithmResult("USD/JPY", true, true, 1, false, 0);
+
         }
+        return new AlgorithmResult("", false, true, null, true, null);
     }
 }
