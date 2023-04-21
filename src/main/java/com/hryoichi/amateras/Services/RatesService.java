@@ -1,5 +1,6 @@
 package com.hryoichi.amateras.Services;
 
+import com.hryoichi.amateras.Configs;
 import com.hryoichi.amateras.Dtos.RatesForCandleChartDto;
 import com.hryoichi.amateras.Clients.AlphaVantageClient;
 import com.hryoichi.amateras.Entities.Rates;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.*;
-
 @Service
 public class RatesService {
     @Autowired
@@ -21,10 +21,13 @@ public class RatesService {
     AlphaVantageClient alphaVantageClient;
     @Autowired
     RatesUpdatedPublisher ratesUpdatedPublisher;
+    @Autowired
+    AnalyzeService analyzeService;
     public Iterable<Rates> getAllRates() {
         return ratesRepository.findAll();
     }
     public float getLatestRate(){return ratesRepository.getLatest().getAskPrice();}
+    public List<Float> getLatestRate(int limit){return ratesRepository.getLatest(limit).stream().map(Rates::getAskPrice).toList();}
 
     public List<RatesForCandleChartDto> getRateForCandleChartDtoList(LocalDateTime endingDate, int numOfBar, int numOfDataInBar){ return getRateForCandleChartDtoList(endingDate, numOfBar, numOfDataInBar, 20);}
 
@@ -68,7 +71,7 @@ public class RatesService {
             rateForCandleChartDto.setDate(dataInBar.get(0).getDate());
             result.add(rateForCandleChartDto);
         }
-        HashMap<String, List<Float>> averageAndSigmas = calcAveragesAndSigmas(nForSigma, numOfDataInBar, closes);
+        HashMap<String, List<Float>> averageAndSigmas = analyzeService.calcAveragesAndSigmas(nForSigma, closes);
         // 移動平均線や標準偏差（ボリンジャーバンド）の計算のために余分に取得したデータを削除
         result.subList(0, nForSigma-1).clear();
         for (int j = 0; j < averageAndSigmas.get("averages").size(); j++){
@@ -81,26 +84,14 @@ public class RatesService {
         return result;
     }
 
-    HashMap<String, List<Float>> calcAveragesAndSigmas(int n, int numOfDataInBar, List<Float> closes){
-        List<Float> sigmas = new ArrayList<>();
-        List<Float> averages = new ArrayList<>();
-        for(int i = n - 1; i < closes.size(); i++){
-            // subList not includes index of (i + 1)
-            List<Float> target = closes.subList(i-(n-1), i + 1);
-
-            Float average = (float) target.stream().mapToDouble(rate -> rate).average().orElse(0);
-            Float sigma = (float) Math.sqrt(( n * target.stream().map(rate -> Math.pow(rate, 2)).mapToDouble(powedRate -> powedRate).sum() - Math.pow(target.stream().mapToDouble(rate -> rate).sum(), 2))/(n * (n - 1)));
-
-            averages.add(average);
-            sigmas.add(sigma);
-        }
-        HashMap<String, List<Float>> resultHashMap = new HashMap<>();
-        resultHashMap.put("averages", averages);
-        resultHashMap.put("sigmas", sigmas);
-        return resultHashMap;
+    public List<Float> getCloses(int numOfDataInBar, List<Rates> data){
+        // 当面は1時間足のみ
+        // ５分間隔でデータ収集なら55 || 54
+        // 3分間隔でデータ収集なら57 || 56
+        return data.stream().filter(datum -> datum.getDate().getMinute() == 60 - Configs.GLOBAL_ALPHA_VANTAGE_COLLECT_EACH_MINUTES || datum.getDate().getMinute() == 60 - Configs.GLOBAL_ALPHA_VANTAGE_COLLECT_EACH_MINUTES - 1).map(Rates::getAskPrice).toList();
     }
 
-    @Scheduled(cron = "0 */3 * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 */" + Configs.GLOBAL_ALPHA_VANTAGE_COLLECT_EACH_MINUTES + " * * * *", zone = "Asia/Tokyo")
     public void collectCurrentUSD_JPY() {
         LocalDateTime now = LocalDateTime.now();
         if(now.getDayOfWeek()  == DayOfWeek.SUNDAY) return;

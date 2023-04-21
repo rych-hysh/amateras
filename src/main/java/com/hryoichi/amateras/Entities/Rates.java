@@ -1,12 +1,16 @@
 package com.hryoichi.amateras.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Rates {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "rates_seq")
@@ -17,5 +21,4 @@ public class Rates {
 
     private float askPrice;
     private float bidPrice;
-
 }
