@@ -17,5 +17,5 @@ public interface FundsRepository extends CrudRepository<Funds, Integer> {
   @Query(value = "SELECT * from funds WHERE simulator_id = :simulatorId ORDER BY update_date ASC", nativeQuery = true, countQuery = "select 1")
   List<Funds> getAllFundUpdateHistoryBySimulatorId(@Param("simulatorId") int simulatorId);
   @Query(value = "SELECT * from funds WHERE simulator_id = :simulatorId AND update_date > :startDate ORDER BY update_date ASC", nativeQuery = true, countQuery = "select 1")
-  List<Funds> getFundUpdateHistoryBySimulatorId(@Param("simulatorId") int simulatorId, LocalDateTime startDate);
+  List<Funds> getFundUpdateHistoryBySimulatorId(@Param("simulatorId") int simulatorId, @Param("startDate ") LocalDateTime startDate);
 }
