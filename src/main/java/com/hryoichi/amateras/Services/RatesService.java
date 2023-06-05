@@ -100,7 +100,7 @@ public class RatesService {
         return resultHashMap;
     }
 
-    @Scheduled(cron = "0 */5 * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 */3 * * * *", zone = "Asia/Tokyo")
     public void collectCurrentUSD_JPY() {
         LocalDateTime now = LocalDateTime.now();
         if(now.getDayOfWeek()  == DayOfWeek.SUNDAY) return;
