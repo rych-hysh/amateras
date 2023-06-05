@@ -38,5 +38,5 @@ to build and run app.
 
 github (push event)-> jenkins (ci/cd) -> server (deploy)
 1. Push to develop.
-2. Webhook to jenkins
+2. Webhook to jenkins.
 3. Deploy to server (aws ec2)
