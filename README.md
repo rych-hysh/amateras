@@ -37,3 +37,4 @@ to build and run app.
 # Jenkins
 
 github (push event)-> jenkins (ci/cd) -> server (deploy)
+1. push to develop
