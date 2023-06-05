@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,15 +19,11 @@ public class PositionsService {
     RatesService ratesService;
 
     public List<Positions> getOpenedPositionsBySimulatorId(int simulatorId) {
-        List<Positions> openedPositions =positionsRepository.getOpenedPositionsBySimulatorId(simulatorId);
-        Collections.reverse(openedPositions);
-        return openedPositions;
+        return positionsRepository.getOpenedPositionsBySimulatorId(simulatorId);
     }
 
     public List<Positions> getClosedPositionsBySimulatorId(int simulatorId) {
-        List<Positions> closedPositions = positionsRepository.getClosedPositionsBySimulatorId(simulatorId);
-        Collections.reverse(closedPositions);
-        return closedPositions;
+        return positionsRepository.getClosedPositionsBySimulatorId(simulatorId);
     }
     public PositionsDto getPositionsDtoOf(Positions position){
         PositionsDto positionsDto = new PositionsDto();
@@ -39,7 +34,7 @@ public class PositionsService {
         positionsDto.lots = position.getLots();
         positionsDto.algorithmName = position.getAlgorithmId().toString(); //TODO: getAlgorigthmNameById
         positionsDto.gotDate = position.getGotDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
-        positionsDto.profits = (ratesService.getLatestRate() - position.getGotRate()) * (float) position.getLots() * 1000f * (position.isAsk() ? 1f : -1f);
+        positionsDto.profits = (positionsDto.gotRate - ratesService.getLatestRate()) * position.getLots() * (position.isAsk() ? 1 : -1);
 
         return positionsDto;
     }
@@ -51,7 +46,7 @@ public class PositionsService {
         historyDto.setSettledRate(position.getSettledRate());
         historyDto.setLots(position.getLots());
         historyDto.setAlgorithmName(position.getAlgorithmId().toString());
-        historyDto.setProfits((position.getSettledRate() - position.getGotRate()) * (float) position.getLots() * 1000f * (position.isAsk() ? 1f : -1f));
+        historyDto.setProfits((position.getSettledRate() - position.getGotRate()) * position.getLots());
         historyDto.setSettledDate(position.getSettledDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
         historyDto.setPair(position.getPair());
         return historyDto;
