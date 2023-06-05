@@ -36,4 +36,4 @@ to build and run app.
     or SHIFT + F9 to start debugging.   
 # Jenkins
 
-github (push event)-> jenkins -> server (deploy)
+github (push event)-> jenkins (ci) -> server (deploy)
