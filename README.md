@@ -30,7 +30,6 @@ to build and run app.
     to start mysql server on docker.
 
 2. Start debug
-3. 
     ```bash
     ./gradlew bootrun
     ```
