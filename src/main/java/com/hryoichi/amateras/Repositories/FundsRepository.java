@@ -14,8 +14,10 @@ import java.util.Optional;
 public interface FundsRepository extends CrudRepository<Funds, Integer> {
   @Query(value = "SELECT funds from funds WHERE simulator_id = :simulatorId ORDER BY update_date DESC limit 1", nativeQuery = true, countQuery = "select 1")
   Optional<Float> getCurrentFundsBySimulatorId(@Param("simulatorId") int simulatorId);
+  @Query(value = "SELECT funds from funds WHERE simulator_id = :simulatorId AND update_date < :startDate ORDER BY update_date DESC limit 1", nativeQuery = true, countQuery = "select 1")
+  Optional<Float> getFundsBySimulatorIdBeforeStartDate(@Param("simulatorId") int simulatorId, @Param("startDate") LocalDateTime startDate);
   @Query(value = "SELECT * from funds WHERE simulator_id = :simulatorId ORDER BY update_date ASC", nativeQuery = true, countQuery = "select 1")
   List<Funds> getAllFundUpdateHistoryBySimulatorId(@Param("simulatorId") int simulatorId);
   @Query(value = "SELECT * from funds WHERE simulator_id = :simulatorId AND update_date > :startDate ORDER BY update_date ASC", nativeQuery = true, countQuery = "select 1")
-  List<Funds> getFundUpdateHistoryBySimulatorId(@Param("simulatorId") int simulatorId, @Param("startDate ") LocalDateTime startDate);
+  List<Funds> getFundUpdateHistoryBySimulatorId(@Param("simulatorId") int simulatorId, @Param("startDate") LocalDateTime startDate);
 }

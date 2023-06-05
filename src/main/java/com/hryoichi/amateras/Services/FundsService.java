@@ -37,11 +37,14 @@ public class FundsService {
       }
 
     });
+    Float originalFund = fundsRepository.getFundsBySimulatorIdBeforeStartDate(simulatorId, startDate).orElse(1000000f);
+    if(fundsDtoList.stream().findFirst().orElseThrow().getFunds() == 0f)fundsDtoList.stream().findFirst().get().setFunds(originalFund);
     for (int i = 0; i< fundsDtoList.size() - 1; i++){
       float funds =fundsDtoList.get(i).getFunds();
       if( funds == 0 )continue;
       if(fundsDtoList.get(i+1).getFunds() == 0) fundsDtoList.get(i + 1).setFunds(funds);
     }
-    return fundsDtoList.stream().filter(fundsDto -> fundsDto.getFunds() != 0).toList();
+    List<FundsDto> result = fundsDtoList.stream().filter(fundsDto -> fundsDto.getFunds() != 0).toList();
+    return result.size() == 0 ? new ArrayList<FundsDto>() : result;
   }
 }

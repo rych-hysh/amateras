@@ -16,7 +16,8 @@ public class FundRestController {
   @GetMapping("/{simulatorId}")
   @CrossOrigin
   List<FundsDto> getFundsHistoryBySimulatorId(@PathVariable("simulatorId") int simulatorId){
-    return fundsService.getFundsHistoryBySimulatorId(simulatorId, LocalDateTime.now().minusHours(24));
+    var n = fundsService.getFundsHistoryBySimulatorId(simulatorId, LocalDateTime.now().minusHours(24));
+    return n;
   }
 
 }
