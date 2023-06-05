@@ -1,4 +1,4 @@
-# fxchart
+# Amateras
 
 Show forex rate chart. Alert via LINE Message API when you shoud buy / sell in the future.
 
