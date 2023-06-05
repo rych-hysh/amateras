@@ -1,6 +1,6 @@
 # Amateras
 
-Amateras is a app showing forex rate chart. Alert via LINE Message API when you shoud buy / sell in the future.
+Amateras is a app showing forex rate chart. Alert via LINE Message API when you should buy / sell in the future.
 
 # Build
 
