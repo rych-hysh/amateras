@@ -2,6 +2,7 @@ package com.hryoichi.amateras.Services;
 
 import com.hryoichi.amateras.Algorythms.AbstractAlgorithm;
 import com.hryoichi.amateras.Algorythms.Algorithms.SampleAlgorithm;
+import com.hryoichi.amateras.Clients.LINEMessagingClient;
 import com.hryoichi.amateras.Entities.Funds;
 import com.hryoichi.amateras.Entities.Positions;
 import com.hryoichi.amateras.Entities.RunningAlgorithms;
@@ -33,10 +34,11 @@ public class OrderingService {
     RatesService ratesService;
     @Autowired
     SampleAlgorithm sampleAlgorithm;
+    @Autowired
+    LINEMessagingClient lineMessagingClient;
 
     @EventListener
     public void onRateUpdated(AlgorithmCheck event){
-        final var res = event.check();
         // TODO: Repositoryを直接叩かずServiceを利用する
         List<Simulators> runningSimulatorList = simulatorsRepository.getRunningSimulators();
         runningSimulatorList.forEach(simulator ->{
@@ -63,6 +65,7 @@ public class OrderingService {
                 }
                 positionsRepository.save(order);
                 fundsRepository.save(updatedFunds);
+                lineMessagingClient.sendSimulatorTradeNotification(simulator.getId(), result);
 //                if(simulatorId.isRequireNotice){
 //                    LINEMessage.send( to simulator.getUserUuid)
 //                }

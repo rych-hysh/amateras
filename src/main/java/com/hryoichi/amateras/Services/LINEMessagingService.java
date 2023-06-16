@@ -1,6 +1,7 @@
 package com.hryoichi.amateras.Services;
 
 import com.hryoichi.amateras.Clients.LINEMessagingClient;
+import com.hryoichi.amateras.Models.AlgorithmResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -98,6 +99,6 @@ public class LINEMessagingService {
                 "    \"paddingAll\": \"0px\"" +
                 "  }" +
                 "}";
-        lineMessagingClient.sendFlexMessage(jsonFlex, "sent by amateras.", "Ufe530665f25924f84bf6fd10d91cb8c3");
+        lineMessagingClient.sendSimulatorTradeNotification(1, new AlgorithmResult("USD/JPY", true, true, 1,150f, true, 1));
     }
 }
