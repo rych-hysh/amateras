@@ -25,7 +25,7 @@ public class SampleAlgorithm extends AbstractAlgorithm {
     protected void closePositionNow(int simulatorId, int lots){
     }
     public AlgorithmResult checkAlgorithm(){
-        return new AlgorithmResult("USD/JPY", true, true, 0, false, 0);
+        return new AlgorithmResult("USD/JPY", true, true, 0,100f, false, 0);
     }
 
     public AlgorithmResult checkAlgorithmBySimulatorId(int simulatorId){
@@ -33,12 +33,12 @@ public class SampleAlgorithm extends AbstractAlgorithm {
         // TODO: AlgorithmResultの返し方を考え直すこと
         if(!positionList.isEmpty()){
             if ( Math.abs(positionList.get(0).getGotRate() - ratesService.getLatestRate()) > 0.05) {
-                return new AlgorithmResult("USD/JPY", true, true, 1, true, positionList.get(0).getId());
+                return new AlgorithmResult("USD/JPY", true, true, 1, ratesService.getLatestRate(), true, positionList.get(0).getId());
             }
         }else{
-            return new AlgorithmResult("USD/JPY", true, true, 1, false, 0);
+            return new AlgorithmResult("USD/JPY", true, true, 1, ratesService.getLatestRate(),  false, 0);
 
         }
-        return new AlgorithmResult("", false, true, null, true, null);
+        return new AlgorithmResult("", false, true, null, null, true, null);
     }
 }
