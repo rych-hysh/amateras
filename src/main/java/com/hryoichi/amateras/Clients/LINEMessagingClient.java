@@ -294,6 +294,6 @@ public class LINEMessagingClient {
             "    }\n" +
             "  }\n" +
             "}";
-        sendFlexMessage(flexMessageAsJson, "test", "Ufe530665f25924f84bf6fd10d91cb8c3");
+        sendFlexMessage(flexMessageAsJson, simulatorName + " made a new transaction.", "Ufe530665f25924f84bf6fd10d91cb8c3");
     }
 }
