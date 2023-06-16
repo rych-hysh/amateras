@@ -6,10 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class AlgorithmResult {
-    private String pair = "USD/JPY";
+    private String pair;
     private boolean doOrder;
     private boolean isAsk;
     private Integer lots;
+    private Float atRate;
     private boolean isSettle;
     private Integer settlePositionId;
     // rate;
