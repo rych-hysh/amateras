@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+
 @Component
 public class LINEMessagingClient {
     @Value("${line.post-url}")
@@ -67,6 +68,8 @@ public class LINEMessagingClient {
     UUID generateRetryKey(){
         return UUID.randomUUID();
     }
+
+
 
     public void sendSimulatorTradeNotification(int simulatorId, AlgorithmResult algorithmResult){
         String simulatorName = simulatorsRepository.findById(simulatorId).orElseThrow().getSimulatorName();
@@ -295,5 +298,66 @@ public class LINEMessagingClient {
             "  }\n" +
             "}";
         sendFlexMessage(flexMessageAsJson, simulatorName + " made a new transaction.", "Ufe530665f25924f84bf6fd10d91cb8c3");
+    }
+
+    public void callApiToIssueLinkToken(String userId) {
+        String ApiUrl = "https://api.line.me/v2/bot/user/" + userId + "/linkToken";
+        RequestEntity<Object> request = RequestEntity
+                .post(ApiUrl)
+                .header("Authorization", "Bearer " + accessToken)
+                .header("X-Line-Retry-Key", String.valueOf(generateRetryKey()))
+                .accept(MediaType.APPLICATION_JSON)
+                .body(null);
+        ResponseEntity<LinkedHashMap> response = null;
+        try{
+            RestTemplate restTemplate = new RestTemplate();
+            response = restTemplate.exchange(request, LinkedHashMap.class);
+        }catch(Exception e){
+            System.out.println(e);
+            //TODO: Error handling
+        }
+        if(Objects.isNull(response) || !response.getStatusCode().is2xxSuccessful())return;
+        String linkToken = (String) response.getBody().get("linkToken");
+        redirectUserToLinkURL(linkToken, userId);
+    }
+    private void redirectUserToLinkURL(String linkToken, String userId){
+        String ApiUrl = "https://api.line.me/v2/bot/message/push";
+        LinkedHashMap body = new LinkedHashMap<>();
+        body.put("to", userId);
+        LinkedHashMap msg = new LinkedHashMap();
+        LinkedHashMap template = new LinkedHashMap();
+        LinkedHashMap actions = new LinkedHashMap<>();
+        msg.put("type", "template");
+        msg.put("altText", "Account Link");
+        template.put("type", "buttons");
+        template.put("text", "Account Link");
+        actions.put("type", "uri");
+        actions.put("label", "Account Link");
+        actions.put("uri", "http://localhost:8080/link?linkToken=" + linkToken);
+        template.put("actions", new ArrayList<>(Arrays.asList(actions)));
+        msg.put("template", template);
+        body.put("messages", new ArrayList<>(Arrays.asList(msg)));
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonBody = "";
+        try{
+            jsonBody = mapper.writeValueAsString(body);
+        }catch (Exception e){
+            return;
+        }
+
+        RequestEntity<Object> request = RequestEntity
+                .post(ApiUrl)
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + accessToken)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(jsonBody);
+        ResponseEntity<LinkedHashMap> response = null;
+        try{
+            RestTemplate restTemplate = new RestTemplate();
+            response = restTemplate.exchange(request, LinkedHashMap.class);
+        }catch(Exception e){
+            System.out.println(e);
+            //TODO: Error handling
+        }
     }
 }
