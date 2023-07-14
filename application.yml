@@ -12,6 +12,10 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    cache-seconds: 3600
 #  sql:
 #    init:
 #      mode: always

@@ -26,6 +26,7 @@ public class LINEMessagingClient {
     @Autowired
     SimulatorsRepository simulatorsRepository;
     public void sendFlexMessage(String flexMessageAsJson, String altText, String toUuid){
+        if(true)return;
         ObjectMapper mapper = new ObjectMapper();
         FlexMessage flexMessage = new FlexMessage();
         flexMessage.setAltText(altText);
