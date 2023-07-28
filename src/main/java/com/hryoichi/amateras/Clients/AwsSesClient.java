@@ -1,5 +1,6 @@
 package com.hryoichi.amateras.Clients;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.mail.Message;
@@ -13,16 +14,23 @@ import java.util.Properties;
 
 @Component
 public class AwsSesClient {
+  @Value("${ses.smtp.username}")
+  private String SMTP_USER_NAME;
+
+  @Value("${ses.smtp.password}")
+  private String SMTP_PASSWORD;
+
+  @Value("$ses.host")
+  private String HOST;
+
+  @Value("${ses.port}")
+  private int PORT;
+
+
+
   public void sendEmail(String to, String subject, String body) throws UnsupportedEncodingException, MessagingException {
     final String FROM = "ryo.robolabo@gmail.com";
     final String FROMNAME = "ryoichi";
-
-    final String SMTP_USER_NAME = "AKIA4HZTYCVX6BKGIW4X";
-    final String SMTP_PASSWORD = "BFHoCwdSVAYMI2KHPWBEnJ3RBgwnBPzd9NxGFf8YD2OZ";
-
-    final String HOST = "email-smtp.us-east-1.amazonaws.com";
-
-    final int PORT = 587;
 
     Properties props = System.getProperties();
     props.put("mail.transport.protocol", "smtp");
