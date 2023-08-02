@@ -37,6 +37,7 @@ public class SecurityConfig {
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/test/**").permitAll()
+            .requestMatchers("/rates/**").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(new JwtAuthenticationFilter(region, userPoolId, Issuer, Audience), UsernamePasswordAuthenticationFilter.class);
     return http.build();
