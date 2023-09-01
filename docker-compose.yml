@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    container_name: "spring_db"
+    container_name: "mysql_db"
     build:
       context: .
       dockerfile: ./Database/Dockerfile
@@ -16,8 +16,8 @@ services:
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root
       TZ: Asia/Tokyo
-#    networks:
-#      - backdb
+    networks:
+      - backdb
 
   spring:
     container_name: "spring_api"
@@ -25,9 +25,10 @@ services:
       - 9090:8080
     tty: true
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/forex_rate?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/amateras_db?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+      IS_DEBUG_MODE: ${IS_DEBUG_MODE:-true}
     depends_on:
       - db
     build:
@@ -35,8 +36,8 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./:/app
-#    networks:
-#      - backdb
-#networks:
-#  backdb:
-#    driver: bridge
+    networks:
+      - backdb
+networks:
+  backdb:
+    driver: bridge
